@@ -94,4 +94,20 @@ flip(0);
 
 
 
-void Sudoku::transform(){};
+void Sudoku::transform(){
+	int i,j;
+	srand(time(NULL));
+	changeNum(rand()%9+1,rand()%9+1);
+	changeRow(rand()%3,rand()%3);
+	changeCol(rand()%3,rand()%3);
+	rotate(rand()%101);
+	flip(rand()%2);
+for(j=0;j<9;j++){
+	for(i=0;i<9;i++){
+cout<<data->map2[j][i]<<' ';
+}
+cout<<'\n';
+}
+
+
+};
