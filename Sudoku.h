@@ -8,6 +8,12 @@ class Sudoku {
    		unsigned short map1[81];
 		unsigned short map2[9][9];
 	};
+	unsigned short findZero(int,int,int,int);
+	bool check(int,int,int,int);
+	bool checkRow(int);
+	bool checkCol(int);
+	bool checkBlock(int,int);
+	unsigned short writeDigit(bool,unsigned short);
  union map* data;
 	public:
 		 void readIn();
