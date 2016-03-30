@@ -4,9 +4,26 @@
 #include "Sudoku.h"
 
 using namespace std;
+unsigned short initial_map[81]={
+1,2,3,4,5,6,7,8,9,
+4,5,6,7,8,9,1,2,3,
+7,8,9,1,2,3,4,5,6,
+2,1,4,3,6,5,8,9,7,
+3,6,5,8,9,7,2,1,4,
+8,9,7,2,1,4,3,6,5,
+5,3,1,6,4,2,9,7,8,
+6,4,2,9,7,8,5,3,1,
+9,7,8,5,3,1,6,4,2};
 
-void Sudoku::readIn(){
-	unsigned short temp,i;
+void Sudoku::initialBoard(){
+int i;
+for(i=0;i<81;i++){
+data->map1[i]=initial_map[i];
+}
+};
+void Sudoku:: readIn(){
+
+unsigned short temp,i;
 for (i=0;i<81;i++){
 	cin>>temp;
 	data->map1[i]=temp;
@@ -43,7 +60,7 @@ switch(data->map2[r][i]){
 }
 temp=temp|checker;
 }
-if(temp==0x0ffe)return true;
+if(temp==0x0ffe||temp==0x0fff)return true;
 else return false;
 };
 bool Sudoku:: checkCol(int c){
@@ -65,7 +82,7 @@ default:checker=0x0001;break;
 }
 temp=temp|checker;
 }
-if(temp==0x0ffe)return true;
+if(temp==0x0ffe||temp==0x0fff)return true;
 else return false;
 
 };
@@ -95,7 +112,7 @@ default:checker=0x0001;break;
 						  }
 		   temp=temp|checker;
 	 }
-	  if(temp==0x0ffe)return true;
+	  if(temp==0x0ffe||temp==0x0fff)return true;
 	   else return false;
 
 };
@@ -112,7 +129,7 @@ void Sudoku::changeNum(int a, int b){
 	if(data->map1[i]==a){
 	data->map1[i]=b;
 	}
-	if(data->map1[i]==b){
+	else if(data->map1[i]==b){
 	data->map1[i]=a;
 	}
 	}
@@ -191,20 +208,24 @@ void Sudoku::transform(){
 	changeCol(rand()%3,rand()%3);
 	rotate(rand()%101);
 	flip(rand()%2);
-for(j=0;j<9;j++){
+//for print out transform result
+/*for(j=0;j<9;j++){        
 	for(i=0;i<9;i++){
 cout<<data->map2[j][i]<<' ';
 }
 cout<<'\n';
 }
 
-
+*/
 };
 void Sudoku::giveQuestion(){
 int i,n,j;
-
+initialBoard();
 srand(time(NULL));
 n=rand()%81;
+
+
+
 transform();
 for(i=0;i<n;i++){
 data->map1[rand()%81]=0;

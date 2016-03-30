@@ -14,7 +14,8 @@ class Sudoku {
 	bool checkCol(int);
 	bool checkBlock(int,int);
 	unsigned short writeDigit(bool,unsigned short);
- union map* data;
+ void initialBoard();
+	union map* data;
 	public:
 		 void readIn();
 		 void giveQuestion();
