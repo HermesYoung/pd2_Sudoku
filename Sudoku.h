@@ -10,10 +10,10 @@ class Sudoku {
 	};
 	unsigned short findZero(int);
 	bool isZero(unsigned short);
-	bool check(int,int,int,int,int);
-	bool checkRow(int,int);
-	bool checkCol(int,int);
-	bool checkBlock(int,int,int);
+	bool check(int,int,int,int);
+ unsigned short checkRow(int);
+ unsigned short checkCol(int);
+ unsigned short checkBlock(int,int);
 	 void initialBoard();
 	union map* data;
 	public:

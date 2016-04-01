@@ -29,31 +29,77 @@ for (i=0;i<81;i++){
 	data->map1[i]=temp;
 }
 };
-bool Sudoku:: checkRow(int r,int n){
+unsigned short Sudoku:: checkRow(int r){
 int i;
-for (i=0;i<9;i++){
-if(data->map2[r][i]==n)return false;
+unsigned short check=0x0000,temp=0x0000;
+for(i=0;i<9;i++){
+switch(data->map2[r][i]){
+case 1:check=0x0001; break;
+case 2:check=0x0002; break;
+case 3:check=0x0004; break;
+case 4:check=0x0008; break;
+case 5:check=0x0010; break;
+case 6:check=0x0020; break;
+case 7:check=0x0040; break;
+case 8:check=0x0080; break;
+case 9:check=0x0100; break;
+case 0:check=0x0000; break;
+default:check=0x0000;break;
 }
-return true;
+temp=temp|check;
 }
-bool Sudoku::checkCol(int c,int n){
+return temp;
+}
+
+unsigned short Sudoku::checkCol(int c){
 	 int i;
-	  for (i=0;i<9;i++){
-	 if(data->map2[i][c]==n)return false;
+	 unsigned short check=0x0000,temp=0x0000;
+	 for(i=0;i<9;i++){
+	 switch(data->map2[i][c]){
+	 case 1:check=0x0001; break;
+	 case 2:check=0x0002; break;
+	 case 3:check=0x0004; break;
+	 case 4:check=0x0008; break;
+	 case 5:check=0x0010; break;
+	 case 6:check=0x0020; break;
+	 case 7:check=0x0040; break;
+	 case 8:check=0x0080; break;
+	 case 9:check=0x0100; break;
+	 case 0:check=0x0000; break;
+	 default:check=0x0000;break;
 	 }
-	 return true;
+	 temp=temp|check;
+	 }
+	    return temp;
+
 	}
-bool Sudoku::checkBlock(int x,int y,int n){
+unsigned short  Sudoku::checkBlock(int x,int y){
 int i,j;
+ unsigned short check=0x0000,temp=0x0000;
 	for(i=3*x;i<3*x+3;i++){
 	for(j=3*y;j<3*y+3;j++){
-	if(data->map2[i][j]==n)return false;
+	switch(data->map2[i][j]){
+		 case 1:check=0x0001; break;
+		 case 2:check=0x0002; break;
+		 case 3:check=0x0004; break;
+		 case 4:check=0x0008; break;
+		 case 5:check=0x0010; break;
+		 case 6:check=0x0020; break;
+		 case 7:check=0x0040; break;
+		 case 8:check=0x0080; break;
+		 case 9:check=0x0100; break;
+		case 0:check=0x0000; break;
+		   default:check=0x0000;break;
+		      }
+temp=temp|check;
+
 	}
 	}
-return true;
+return temp;
 }
-bool Sudoku::check( int r,int c,int x,int y,int n){
-return checkRow(r,n)&checkCol(c,n)&checkBlock(x,y,n);
+bool Sudoku::check( int r,int c,int x,int y){
+if( (checkRow(r)|checkCol(c)|checkBlock(x,y))==0x01ff)return false;
+else return true;
 }
 unsigned short  Sudoku:: findZero(int x ){
 unsigned short i;
@@ -184,51 +230,33 @@ cout<<data->map2[i][j]<<' ';
  void Sudoku::solve(){
  int i,j,c=0,a=0,n,ans=0,e=0;
 unsigned short temp[9][9];
+for(i=0;i<81;i++){if(data->map1[i]!=0)c++;}
+if(c<17)ans=2;
+else{
 for(i=0;i<9;i++){
-for(j=0;j<9;j++){
-temp[i][j]=data->map2[i][j];
-}}
-  for(i=0;i<9;i++){
-	  for(j=0;j<9;j++){
-	  if(temp[i][j]!=0)a++;
-	  }}
-if(a>=17){ans=1;}
-else{ans=2;}
-if(ans==1){
-for(i=0;i<9;i++){
-	 for(j=0;j<9;j++){
-		 for(n=1;n<=9;n++){
-		 data->map2[i][j]=n;
-			 if(check(i,j,i%3,j%3,n)){ans=0;e++;}
-		 else{ans=1;break; }
+   for(j=0;j<9;j++){
+	  
+	   if(data->map2[i][j]==0){
 		 
-		}
-	if(e==9)break; }
-if(e==9)break;}
+	   if(check(i,j,i/3,j/3)){ans=1;
+		 
+	   }
+	  
+	   else{
+	//	   cout<<i<<' '<<j;
+	   ans=0;break;
+	   }}
+	   }
+//   cout<<'\n';
+   if(ans==0)break;
+
 }
-
+}
 cout<<ans<<'\n';
- initialBoard();
-if(ans==1){
-   
- while(c==0){
- for(i=0;i<9;i++){
-	 for(j=0;j<9;j++){
-	
-	 if(temp[i][j]!=0&&temp[i][j]!=data->map2[i][j]) {c=0; break;}
-	 else{c=1;}
-	 }
-  if(temp[i][j]!=0&&temp[i][j]!=data->map2[i][j]) {transform(); break;}
- }
- 
- }
- 	
-
-
- for(j=0;j<9;j++){
+  for(j=0;j<9;j++){
  for(i=0;i<9;i++){
  cout<<data->map2[j][i]<<' ';
  }
  cout<<'\n';
- }}
+ }
  };
