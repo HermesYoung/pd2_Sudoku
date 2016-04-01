@@ -13,8 +13,8 @@ class Sudoku {
 	bool check(int,int,int,int);
  unsigned short checkRow(int);
  unsigned short checkCol(int);
- unsigned short checkBlock(int,int);
-	 void initialBoard();
+ unsigned short checkBlock(int,int);	
+ void initialBoard();
 	union map* data;
 	public:
 		 void readIn();

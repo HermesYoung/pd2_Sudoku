@@ -46,7 +46,8 @@ case 9:check=0x0100; break;
 case 0:check=0x0000; break;
 default:check=0x0000;break;
 }
-temp=temp|check;
+if((temp!=0x0000)&&((temp&check)!=0x0000)){return 0x01ff;}else{temp=temp|check;}
+
 }
 return temp;
 }
@@ -54,6 +55,8 @@ return temp;
 unsigned short Sudoku::checkCol(int c){
 	 int i;
 	 unsigned short check=0x0000,temp=0x0000;
+	 
+	 
 	 for(i=0;i<9;i++){
 	 switch(data->map2[i][c]){
 	 case 1:check=0x0001; break;
@@ -68,15 +71,19 @@ unsigned short Sudoku::checkCol(int c){
 	 case 0:check=0x0000; break;
 	 default:check=0x0000;break;
 	 }
-	 temp=temp|check;
+	 if((temp!=0x0000)&&((temp&check)!=0x0000)){return 0x01ff;}else{temp=temp|check;}
+
 	 }
 	    return temp;
 
 	}
-unsigned short  Sudoku::checkBlock(int x,int y){
+
+	unsigned short  Sudoku::checkBlock(int x,int y){
 int i,j;
  unsigned short check=0x0000,temp=0x0000;
-	for(i=3*x;i<3*x+3;i++){
+
+
+ for(i=3*x;i<3*x+3;i++){
 	for(j=3*y;j<3*y+3;j++){
 	switch(data->map2[i][j]){
 		 case 1:check=0x0001; break;
@@ -91,8 +98,7 @@ int i,j;
 		case 0:check=0x0000; break;
 		   default:check=0x0000;break;
 		      }
-temp=temp|check;
-
+if((temp!=0x0000)&&((temp&check)!=0x0000)){return 0x01ff;}else{temp=temp|check;}
 	}
 	}
 return temp;
@@ -208,6 +214,7 @@ cout<<'\n';
 
 */
 };
+
 void Sudoku::giveQuestion(){
 int i,n,j;
 initialBoard();
@@ -229,7 +236,6 @@ cout<<data->map2[i][j]<<' ';
  };
  void Sudoku::solve(){
  int i,j,c=0,a=0,n,ans=0,e=0;
-unsigned short temp[9][9];
 for(i=0;i<81;i++){if(data->map1[i]!=0)c++;}
 if(c<17)ans=2;
 else{
@@ -243,7 +249,7 @@ for(i=0;i<9;i++){
 	   }
 	  
 	   else{
-	//	   cout<<i<<' '<<j;
+//		   cout<<i<<' '<<j;
 	   ans=0;break;
 	   }}
 	   }
