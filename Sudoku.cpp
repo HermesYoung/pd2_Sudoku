@@ -235,10 +235,10 @@ cout<<data->map2[i][j]<<' ';
         }
  };
  void Sudoku::solve(){
- int i,j,c=0,a=0,n,ans=0,e=0;
-for(i=0;i<81;i++){if(data->map1[i]!=0)c++;}
-if(c<17)ans=2;
-else{
+ int i,j,c=0,a=0,n=0,ans=0,e=0;
+unsigned short temp[81];
+ for(i=0;i<81;i++){temp[i]=data->map1[i];}
+
 for(i=0;i<9;i++){
    for(j=0;j<9;j++){
 	  
@@ -257,12 +257,24 @@ for(i=0;i<9;i++){
    if(ans==0)break;
 
 }
-}
+for(i=0;i<9;i++){
+	for(j=0;j<9;j++){
+	if(data->map2[i][j]!=0)c++;
+	}}
+if(c<17)ans=2;
 cout<<ans<<'\n';
-  for(j=0;j<9;j++){
+if(ans==1){
+ initialBoard();
+ while(n<81){
+ for(i=0;i<81;i++){if((temp[i]!=0)&&(temp[i]!=data->map1[i])){transform();n=0; break;}else{n++;}}
+
+ }
+   
+	for(j=0;j<9;j++){
  for(i=0;i<9;i++){
  cout<<data->map2[j][i]<<' ';
  }
  cout<<'\n';
  }
+}
  };
