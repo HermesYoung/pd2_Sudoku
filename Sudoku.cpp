@@ -45,8 +45,8 @@ bool Sudoku::checkCol(int c,int n){
 	}
 bool Sudoku::checkBlock(int x,int y,int n){
 int i,j;
-	for(i=x;i<x+3;i++){
-	for(j=y;j<y+3;j++){
+	for(i=3*x;i<3*x+3;i++){
+	for(j=3*y;j<3*y+3;j++){
 	if(data->map2[i][j]==n)return false;
 	}
 	}
@@ -182,22 +182,45 @@ cout<<data->map2[i][j]<<' ';
         }
  };
  void Sudoku::solve(){
- int i,j,temp=0,x,y,bx,by;
- while(isZero(findZero(temp))){
- temp=findZero(temp);
-	 for(i=1;i<=9;i++){
-	 x=temp%9;
-	 y=temp/9;
-	 bx=x%3;
-	 by=y%3;
-	if(check(x,y,bx,by,i))
-	{ data->map1[temp]=i;
-	break;}
+ int i,j,c=0,a=0,n,ans=0;
+unsigned short temp[9][9];
+for(i=0;i<9;i++){
+for(j=0;j<9;j++){
+temp[i][j]=data->map2[i][j];
+}}
+  for(i=0;i<9;i++){
+	  for(j=0;j<9;j++){
+	  if(temp[i][j]!=0)a++;
+	  }}
+for(i=0;i<9;i++){
+	 for(j=0;j<9;j++){
+		 for(n=1;n<=9;n++){
+		 if(!check(i,j,i%3,j%3,n)){ans=0;}
+		 else{ans=1;}
+		 }}}
+if(a>=17){ans=1;}
+else{ans=2;}
+cout<<ans<<'\n';
+ initialBoard();
 
- }}
+   
+ while(c==0){
  for(i=0;i<9;i++){
+	 for(j=0;j<9;j++){
+	
+	 if(temp[i][j]!=0&&temp[i][j]!=data->map2[i][j]) {c=0; break;}
+	 else{c=1;}
+	 }
+  if(temp[i][j]!=0&&temp[i][j]!=data->map2[i][j]) {transform(); break;}
+ }
+ 
+ }
+ 	
+
+
  for(j=0;j<9;j++){
- cout<<data->map2[i][j]<<' ';
+ for(i=0;i<9;i++){
+ cout<<data->map2[j][i]<<' ';
  }
  cout<<'\n';
  }
