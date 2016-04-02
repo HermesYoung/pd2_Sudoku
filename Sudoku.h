@@ -23,7 +23,7 @@ class Sudoku {
 			 unsigned short data[N][N];
 			 unsigned short copy[N][N];
 			bool equal(unsigned short grid1[N][N],unsigned short grid2[N][N]);
-
+bool check();            
 
 			 	public:
 			 		 void readIn();
