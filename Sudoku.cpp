@@ -226,8 +226,8 @@ for(i=0;i<9;i++){
 for(j=0;j<9;j++){
 if(data[i][j]!=0){
 temp=data[i][j];
-data[i][j]=0;
-if(!isSafe(data,i,j,temp)){
+copy[i][j]=0;
+if(!isSafe(copy,i,j,temp)){
 	data[i][j]=temp;	return false;}
 
 else{data[i][j]=temp;}}
@@ -236,11 +236,11 @@ return true;
 }
 void Sudoku::solve(){
 	int i,j,c=0;
-	
-if(check()){	
 	for(i=0;i<9;i++){for(j=0;j<9;j++){
 		copy[i][j]=data[i][j];	
 		if(data[i][j]!=0)c++;	}}
+if(check()){	
+	
 
 
 			if(SolveSudoku1(copy)&&SolveSudoku2(data)){
