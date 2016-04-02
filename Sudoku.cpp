@@ -237,14 +237,15 @@ return true;
 void Sudoku::solve(){
 	int i,j,c=0;
 	for(i=0;i<9;i++){for(j=0;j<9;j++){
-		copy[i][j]=data[i][j];	
+		copy[i][j]=data[i][j];
+		copy2[i][j]=data[i][j];	
 		if(data[i][j]!=0)c++;	}}
 if(check()){	
 	
 
 
-			if(SolveSudoku1(copy)&&SolveSudoku2(data)){
-				if((c<17)||(!equal(copy,data))){cout<<'2'<<endl;}
+			if(SolveSudoku1(copy2)&&SolveSudoku2(data)){
+				if((c<17)||(!equal(copy2,data))){cout<<'2'<<endl;}
 				else{cout<<'1'<<endl;
 					for(i=0;i<9;i++){
 								for(j=0;j<9;j++){

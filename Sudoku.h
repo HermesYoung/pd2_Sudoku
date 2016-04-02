@@ -22,7 +22,9 @@ class Sudoku {
 			 bool isSafe(unsigned short grid[N][N], int row, int col, int num);
 			 unsigned short data[N][N];
 			 unsigned short copy[N][N];
-			bool equal(unsigned short grid1[N][N],unsigned short grid2[N][N]);
+			 unsigned short copy2[N][N];
+
+			 bool equal(unsigned short grid1[N][N],unsigned short grid2[N][N]);
 bool check();            
 
 			 	public:
