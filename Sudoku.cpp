@@ -133,32 +133,39 @@ transform();
 													         cout<<'\n';
 															 				         }
 				return;				 }
-bool Sudoku::SolveSudoku(unsigned short grid[N][N])
+bool Sudoku::SolveSudoku1(unsigned short grid[N][N])
 {
-		    int row, col;
-					 
-					    if (!FindUnassignedLocation(grid, row, col))
-											       return true;
-									 
-									    
-									    for (unsigned short num = 1; num <= 9; num++)
-																    {
-																									        
-																									        if (isSafe(grid, row, col, num))
-																																						        {
-
-																																																						            grid[row][col] = num;
-																																																																									 
-																																																																									            
-																																																																									            if (SolveSudoku(grid))
-																																																																																																	                return true;
-																																																																																															 
-																																																																																															            grid[row][col] = UNASSIGNED;
-																																																																																																																								        }
-																																				    }
-														    return false; 
+int row, col;
+   if (!FindUnassignedLocation(grid, row, col))
+					       return true;
+					    for (unsigned short num = 1; num <= 9; num++)
+							    {
+						        if (isSafe(grid, row, col, num))
+					        {
+				            grid[row][col] = num;
+		            if (SolveSudoku1(grid))
+		                return true;
+            grid[row][col] = UNASSIGNED;
+				        }
+					    }
+			    return false; 
 }
- 
+ bool Sudoku::SolveSudoku2(unsigned short grid[N][N])
+ {
+ int row, col;
+  if (!FindUnassignedLocation(grid, row, col))
+                         return true;
+                        for (unsigned short num = 9; num >= 1; num--)
+                               {
+                                if (isSafe(grid, row, col, num))
+                            {
+                             grid[row][col] = num;
+                     if (SolveSudoku2(grid))
+                        return true;
+             grid[row][col] = UNASSIGNED;
+                        }
+                         }
+return false;}
 
 bool Sudoku::FindUnassignedLocation(unsigned short grid[N][N], int& row, int& col)
 {
@@ -205,19 +212,29 @@ bool Sudoku::isSafe(unsigned short grid[N][N], int row, int col, int num)
 							           !UsedInCol(grid, col, num) &&
 									   					              !UsedInBox(grid, row - row%3 , col - col%3, num);
 }
+ bool Sudoku:: equal(unsigned short grid1[N][N],unsigned short grid2[N][N]){
+ int i,j;
+ for(i=0;i<9;i++){for(j=0;j<9;j++){
+ if(grid1[i][j]!=grid2[i][j])return false;
+ }}
+ return true;
+ }
 void Sudoku::solve(){
 	int i,j,c=0;
 	
 	for(i=0;i<9;i++){for(j=0;j<9;j++){
-				if(data[i][j]!=0)c++;	}}
-	if(c<17){cout<<'2'<<endl;}
-	else{
-			if(SolveSudoku(data)){cout<<'1'<<endl;
+		copy[i][j]=data[i][j];	
+		if(data[i][j]!=0)c++;	}}
+
+
+			if(SolveSudoku1(copy)&&SolveSudoku2(data)){
+				if((c<17)||(!equal(copy,data))){cout<<'2'<<endl;}
+				else{cout<<'1'<<endl;
 					for(i=0;i<9;i++){
 								for(j=0;j<9;j++){
 											cout<<data[i][j]<<' ';
 													}
-								cout<<endl;	}}
+								cout<<endl;	}}}
 				else cout<<'0';
 					
-	}return;} 
+return;} 
