@@ -31,7 +31,8 @@ void Sudoku:: readIn(){
 				}
 return;}
 void Sudoku::changeNum(int a, int b){
-		unsigned short temp,i,j;
+	
+	unsigned short temp,i,j;
 			for(i=0;i<9;i++){
 			for(j=0;j<9;j++){
 			if(data[i][j]==a){
@@ -41,6 +42,7 @@ void Sudoku::changeNum(int a, int b){
 								 data[i][j]=a;
 									}
 							}}
+
 			return;
 }
 void Sudoku::changeRow(int a, int b){
@@ -48,6 +50,7 @@ void Sudoku::changeRow(int a, int b){
 	int c=0,d=0;
 	c=3*a;
 	d=3*b;
+
 	for(j=0;j<3;j++){
 		for(i=0;i<9;i++){
 				temp=data[c+j][i];
@@ -55,6 +58,7 @@ void Sudoku::changeRow(int a, int b){
 						data[d+j][i]=temp;
 		}
 	}
+
 return;
 }
 void Sudoku::changeCol(int a,int b){
@@ -72,6 +76,7 @@ void Sudoku::changeCol(int a,int b){
 return;
 }
 void Sudoku::flip(int n){
+
 	unsigned short temp,i,j;
 	if(n==0){
 		for(j=0;j<9;j++){
@@ -96,16 +101,23 @@ return;
 }
 void Sudoku::rotate(int n){
 	unsigned short temp,i,j,t;
+ unsigned short rot[9][9];
+
+
 	for(t=0;t<n;t++){
-	for(i=0;(i==4)&(j==4);i++){
-	for(j=0;(i==4)&(j==4);j++){
-	temp=data[i][j];
-	data[i][j]=data[8-j][8-i];
-	data[8-j][8-i]=temp;
-	}
-	}
+for(i=0;i<9;i++){
+for(j=0;j<9;j++){
+rot[i][j]=data[8-j][8-i];
+}
+}
+
+for(i=0;i<9;i++){
+	for(j=0;j<9;j++){data[i][j]=rot[i][j];}}
+flip(0);
 	
 	}
+
+
 return;
 }
 void Sudoku::transform(){
