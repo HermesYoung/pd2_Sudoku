@@ -128,7 +128,13 @@ void Sudoku::transform(){
 						changeCol(rand()%3,rand()%3);
 							rotate(rand()%101);
 							flip(rand()%2);
-								}
+for(i=0;i<9;i++){
+for(j=0;j<9;j++){
+cout<<data[i][j]<<' ';
+}
+cout<<endl;
+}	
+}
 void Sudoku::giveQuestion(){
 		int i,n,j;
 			initialBoard();
