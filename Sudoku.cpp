@@ -156,7 +156,7 @@ if (!FindUnassignedLocation(grid, r, c))
 return true;
 for (unsigned short num = 9; num >= 1; num--){
 if (isSafe(grid, r, c, num)){
-grid[row][col] = num;
+grid[r][c] = num;
 if (SolveSudoku2(grid))
 return true;
 grid[r][c] = 0;
@@ -165,13 +165,13 @@ grid[r][c] = 0;
 return false;}
 bool Sudoku::FindUnassignedLocation(unsigned short grid[9][9], int& r, int& c){
 for (r = 0; r< 9; r++)
-for (c= 0; c < 9; col++)
+for (c= 0; c < 9; c++)
 if (grid[r][c] == 0)
 return true;
 return false;
 }
 bool Sudoku::UsedInRow(unsigned short grid[9][9], int r, int num){
-for (int c = 0; c < N; col++)
+for (int c = 0; c < N; c++)
 if (grid[r][c] == num)
 return true;
 return false;
