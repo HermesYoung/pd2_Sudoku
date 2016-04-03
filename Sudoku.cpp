@@ -136,63 +136,63 @@ cout<<data[i][j]<<' ';
 cout<<'\n';
 }
 return;}
-bool Sudoku::SolveSudoku1(unsigned short grid[N][N]){
-int row, col;
-if (!FindUnassignedLocation(grid, row, col))
+bool Sudoku::SolveSudoku1(unsigned short grid[9][9]){
+int r, c;
+if (!FindUnassignedLocation(grid, r, c))
 return true;
 for (unsigned short num = 1; num <= 9; num++){
-if (isSafe(grid, row, col, num)){
-grid[row][col] = num;
+if (isSafe(grid, r, c, num)){
+grid[r][c] = num;
 if (SolveSudoku1(grid))
 return true;
-grid[row][col] = UNASSIGNED;
+grid[r][c] = 0;
 }
 }
 return false; 
 }
-bool Sudoku::SolveSudoku2(unsigned short grid[N][N]){
-int row, col;
-if (!FindUnassignedLocation(grid, row, col))
+bool Sudoku::SolveSudoku2(unsigned short grid[9][9]){
+int r, c;
+if (!FindUnassignedLocation(grid, r, c))
 return true;
 for (unsigned short num = 9; num >= 1; num--){
-if (isSafe(grid, row, col, num)){
+if (isSafe(grid, r, c, num)){
 grid[row][col] = num;
 if (SolveSudoku2(grid))
 return true;
-grid[row][col] = UNASSIGNED;
+grid[r][c] = 0;
 }
 }
 return false;}
-bool Sudoku::FindUnassignedLocation(unsigned short grid[N][N], int& row, int& col){
-for (row = 0; row < N; row++)
-for (col = 0; col < N; col++)
-if (grid[row][col] == UNASSIGNED)
+bool Sudoku::FindUnassignedLocation(unsigned short grid[9][9], int& r, int& c){
+for (r = 0; r< 9; r++)
+for (c= 0; c < 9; col++)
+if (grid[r][c] == 0)
 return true;
 return false;
 }
-bool Sudoku::UsedInRow(unsigned short grid[N][N], int row, int num){
-for (int col = 0; col < N; col++)
-if (grid[row][col] == num)
+bool Sudoku::UsedInRow(unsigned short grid[9][9], int r, int num){
+for (int c = 0; c < N; col++)
+if (grid[r][c] == num)
 return true;
 return false;
 }
-bool Sudoku::UsedInCol(unsigned short grid[N][N], int col, int num){
-for (int row = 0; row < N; row++)
-if (grid[row][col] == num)
+bool Sudoku::UsedInCol(unsigned short grid[9][9], int c, int num){
+for (int r = 0; r< 9; r++)
+if (grid[r][c] == num)
 return true;
 return false;
 }
-bool Sudoku::UsedInBox(unsigned short grid[N][N], int boxStartRow, int boxStartCol, int num){
-for (int row = 0; row < 3; row++)
-for (int col = 0; col < 3; col++)
-if (grid[row+boxStartRow][col+boxStartCol] == num)
+bool Sudoku::UsedInBox(unsigned short grid[9][9], int boxStartRow, int boxStartCol, int num){
+for (int r = 0; r < 3; r++)
+for (int c = 0; c < 3; c++)
+if (grid[r+boxStartRow][c+boxStartCol] == num)
 return true;
 return false;
 }
-bool Sudoku::isSafe(unsigned short grid[N][N], int row, int col, int num){
- return !UsedInRow(grid, row, num) &&!UsedInCol(grid, col, num) &&!UsedInBox(grid, row - row%3 , col - col%3, num);
+bool Sudoku::isSafe(unsigned short grid[9][9], int r, int c, int num){
+ return !UsedInRow(grid, r, num) &&!UsedInCol(grid, c, num) &&!UsedInBox(grid, r - r%3 , c - c%3, num);
 }
- bool Sudoku:: equal(unsigned short grid1[N][N],unsigned short grid2[N][N]){
+ bool Sudoku:: equal(unsigned short grid1[9][9],unsigned short grid2[9][9]){
  int i,j;
  for(i=0;i<9;i++){for(j=0;j<9;j++){
  if(grid1[i][j]!=grid2[i][j])return false;
